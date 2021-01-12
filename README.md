@@ -31,6 +31,13 @@ Where NODE_i is the node ID and Li represents its label. Li must be equal to 0 i
 Hypothetically any metagenomic binning tool could be used for the classification. During the testing we decided to use [**kraken2**](https://github.com/DerrickWood/kraken2.git), since it's one of the best performing.
 
 ## Usage Example
+In order to run ReadGraph it's necessary to type on the terminal a command structured as follows:
 ```
-python3 ReadGraph.py --graph $SGA_DIR/Graph.asqg --output $Read-Graph_Output_DIR/ --binned $Kraken2_DIR/BinnedReads.out --preﬁx example1 --max_iteration 20
+python3 ClassGraph.py --graph $Assembler_DIR/Graph.asqg --output $ClassGraph_Output_DIR/ --binned $Classifier_DIR/BinnedReads.out --preﬁx example1 --max_iteration 20
 ```
+Where:
+* --graph           path to the graph file (asgg)
+* --output          path to the folder where we want to store the output
+* --binned          path to the file that stores the result of the initial classification with a preexisting binning tool
+* --prefix          name of the output file
+* --max_iteration   maximum number of iterations in the label propagation algorithm
