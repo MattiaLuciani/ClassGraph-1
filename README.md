@@ -2,7 +2,7 @@
 ClassGraph is a tool that classifies metagenomic reads starting from the output of other pre-existing binning tools
 
 <p align="center">
-  <img src="Images/GeneralschemeBig" width="400" title="ClassGraph workflow" alt="ClassGraph workflow">
+  <img src="Images/GeneralschemeBig.png" width="400" title="ClassGraph workflow" alt="ClassGraph workflow">
 </p>
 
 ## ClassGraph Download
