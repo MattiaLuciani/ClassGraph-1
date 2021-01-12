@@ -15,4 +15,4 @@ ClassGraph requires two input ﬁles: one representing a graph of reads and the 
 
 ### Overlap Graph
 The graph must be composed as follows: the nodes are represented by the reads and the edges by their overlap. The file must be presented in asqg format.
-One possible tools that this requirements is [**SGA**](https://github.com/jts/sga) (String Graph Assembler), an assembler based on the overlap-layout-consensus.
+One possible tools that satisfies this requirements is [**SGA**](https://github.com/jts/sga) (String Graph Assembler), an assembler based on the overlap-layout-consensus.
