@@ -28,4 +28,4 @@ NODE_5,L2
 ...
 ```
 Where NODE_i is the node ID and Li represents its label. Li must be equal to 0 if the read wasn't classified.
-Hypothetically any metagenomic binning tool could be used for the classification. The authors in the experimental stage tested [**kraken2**] (https://github.com/DerrickWood/kraken2.git), one of te best performing.
+Hypothetically any metagenomic binning tool could be used for the classification. During the testing we decided to use [**kraken2**](https://github.com/DerrickWood/kraken2.git), since it's one of the best performing.
