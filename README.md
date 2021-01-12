@@ -17,7 +17,7 @@ ClassGraph requires two input ﬁles: one representing a graph of reads and the 
 The graph must be composed as follows: the nodes represent the reads and the edges their overlaps. The file must be presented in asqg format.
 One possible tool that satisfies these requirements is [**SGA**](https://github.com/jts/sga) (String Graph Assembler), an assembler based on the overlap-layout-consensus.
 
-## Binning Tools
+### Binning Tools
 ClassGraph requires as input the result of the classification process presented as follows:
 ```
 NODE_1,L1
@@ -29,3 +29,8 @@ NODE_5,L2
 ```
 Where NODE_i is the node ID and Li represents its label. Li must be equal to 0 if the read wasn't classified.
 Hypothetically any metagenomic binning tool could be used for the classification. During the testing we decided to use [**kraken2**](https://github.com/DerrickWood/kraken2.git), since it's one of the best performing.
+
+## Usage Example
+```
+python3 ReadGraph.py --graph $SGA_DIR/Graph.asqg --output $Read-Graph_Output_DIR/ --binned $Kraken2_DIR/BinnedReads.out --preﬁx example1 --max_iteration 20
+```
