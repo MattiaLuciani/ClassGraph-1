@@ -23,7 +23,7 @@ It's possible to use [Conda](https://docs.conda.io/en/latest/) in order to set-u
 In order to create the Conda environment and activate it run the following commands:
 ```
 conda env create -f environment.yml
-conda activate classgraph
+conda activate ClassGraph
 ```
 
 ## Preprocessing
