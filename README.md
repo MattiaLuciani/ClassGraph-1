@@ -13,9 +13,18 @@ It's possible to download ClassGraph by cloning the repository in your machine.
 ```
 git clone https://github.com/MargheritaCavattoni/ClassGraph.git
 ```
-## Dependencies
+## Installation
 The istallation of ClassGraph requires python 3.6 or above. Besides the following dependency is needed:
 * [python-igraph](https://igraph.org/python/)
+
+### Installing with Conda
+It's possible to use [Conda](https://docs.conda.io/en/latest/) in order to set-up the proper environment of ClassGraph. [Anaconda](https://www.anaconda.com/distribution/) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) contain Conda.
+
+In order to create the Conda environment and activate it run the following commands:
+```
+conda env create -f environment.yml
+conda activate classgraph
+```
 
 ## Preprocessing
 ClassGraph requires two input ﬁles: one representing a graph of reads and the other containing the result of the classiﬁcation process. The labelles assigned to the reads by the pre-existing binning tool will be propagated over the graph to the still unclassified reads. ClassGraph is thought to be used with paired-end reads.
