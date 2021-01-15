@@ -10,6 +10,10 @@ import logging
 from igraph import *
 import labelprop
 import BidirectionalMap
+from LabelPropagation import lp1, pl
+
+
+
 
 # Sample command
 # -------------------------------------------------------------------
@@ -40,10 +44,11 @@ ap.add_argument("--graph", required=True, help="path to the reads graph file")
 ap.add_argument("--binned", required=True,
                 help="path to the file with the initial binning output")
 ap.add_argument("--output", required=True, help="path to the output folder")
-ap.add_argument("--prefix", required=False, help="prefix for the output file")
-ap.add_argument("--max_iteration", required=False, type=int,
+ap.add_argument("--prefix", required=True, help="prefix for the output file")
+ap.add_argument("--max_iteration", required=True, type=int,
                 help="maximum number of iterations for label propagation algorithm. [default: 20]")
-
+ap.add_argument("--lp_version", required=True, type=int,
+                help="Type 1 if you want to propagate with lp-v1, type 2 if you prefer to use lp-v2")
 args = vars(ap.parse_args())
 
 sgafile = args["graph"]
@@ -53,11 +58,12 @@ kraken2_file = args["binned"]
 output_path = args["output"]
 prefix = args["prefix"]
 max_iteration = args["max_iteration"]
+labprop_v= args["lp_version"]
 
 # Setup output path for log file
 # ---------------------------------------------------
 
-fileHandler = logging.FileHandler(output_path + "/" + prefix + "readgraphbin.log")
+fileHandler = logging.FileHandler(output_path + "/" + prefix + "classgraph.log")
 fileHandler.setLevel(logging.INFO)
 fileHandler.setFormatter(formatter)
 logger.addHandler(fileHandler)
@@ -69,6 +75,7 @@ logger.info("Overlap graph file: " + sgafile)
 logger.info("Existing binning output file: " + kraken2_file)
 logger.info("Final binning output file: " + output_path)
 logger.info("Maximum number of iterations: " + str(max_iteration))
+logger.info("Label propagation v" + str(labprop_v))
 logger.info("ReadGraph started")
 
 # Get the number of bins from the initial binning result
@@ -147,90 +154,90 @@ reads_info = []
 
 read_groups = []
 
-# try:
-common = ""
-commonend = "."
+try:
+    common = ""
+    commonend = "."
 
-for i in range(len(krakenlabels)):
-    actual_common = krakenlabels[i][0].split(".", 1)[0]
-    if common != actual_common:
-        read_group = []
-        read_group.append(actual_common)
-        read_group.append(node_count)
-        read_groups.append(read_group)
-        common = actual_common
+    for i in range(len(krakenlabels)):
+        actual_common = krakenlabels[i][0].split(".", 1)[0]
+        if common != actual_common:
+            read_group = []
+            read_group.append(actual_common)
+            read_group.append(node_count)
+            read_groups.append(read_group)
+            common = actual_common
 
-    if krakenlabels[i][1] != "0":
-        binned_reads.append(node_count)
+        if krakenlabels[i][1] != "0":
+            binned_reads.append(node_count)
 
-    reads_info.append(krakenlabels[i][1])
-    read_id = krakenlabels[i][0]
-    my_map.append(read_id)
-    node_count += 1
+        reads_info.append(krakenlabels[i][1])
+        read_id = krakenlabels[i][0]
+        my_map.append(read_id)
+        node_count += 1
 
-# for i in range(len(read_groups)):
-#     print(read_groups[i])
+    # for i in range(len(read_groups)):
+    #     print(read_groups[i])
 
 
-for j in range(len(edges)):
-    link = []
-    common1 = edges[j][0].split(".", 1)[0]
-    for i in range(len(read_groups)):
-        if common1 == read_groups[i][0]:
-            link.append(int(read_groups[i][1] + int(edges[j][0][(len(common1) + 1):]) - 1))
-            break
-    common2 = edges[j][1].split(".", 1)[0]
-    for i in range(len(read_groups)):
-        if common2 == read_groups[i][0]:
-            link.append(int(read_groups[i][1] + int(edges[j][1][(len(common2) + 1):]) - 1))
-            break
-    link.append(float(edges[j][2]))
-    links.append(list(link))
+    for j in range(len(edges)):
+        link = []
+        common1 = edges[j][0].split(".", 1)[0]
+        for i in range(len(read_groups)):
+            if common1 == read_groups[i][0]:
+                link.append(int(read_groups[i][1] + int(edges[j][0][(len(common1) + 1):]) - 1))
+                break
+        common2 = edges[j][1].split(".", 1)[0]
+        for i in range(len(read_groups)):
+            if common2 == read_groups[i][0]:
+                link.append(int(read_groups[i][1] + int(edges[j][1][(len(common2) + 1):]) - 1))
+                break
+        link.append(float(edges[j][2]))
+        links.append(list(link))
 
 # for i in range(len(links)):
 #     print(links[i])
 
-# except:
-#     logger.error("Please make sure that the correct path to the assembly graph file is provided.")
-#     logger.info("Exiting ReadGraph!")
-#     sys.exit(1)
+except:
+    logger.error("Please make sure that the correct path to the assembly graph file is provided.")
+    logger.info("Exiting ReadGraph!")
+    sys.exit(1)
 
 # Construct the assembly graph
 # -------------------------------
 #
-#try:
+try:
 
     # Create the graph
-reads_graph = Graph()
+    reads_graph = Graph()
 
-# Create list of edges
-edge_list = []
+    # Create list of edges
+    edge_list = []
 
-weights_list = []
+    weights_list = []
 
-# Add vertices
-reads_graph.add_vertices(node_count)
+    # Add vertices
+    reads_graph.add_vertices(node_count)
 
-# Name vertices
-for i in range(len(reads_graph.vs)):
-    reads_graph.vs[i]["id"] = i
-    reads_graph.vs[i]["label"] = str(my_map[i])
-# Iterate links
-for i in range(len(links)):
-    # Remove self loops
-    if links[i][0] != links[i][1]:
-        edge_list.append((int(links[i][0]), int(links[i][1])))
-        weights_list.append((float(links[i][2])))
+    # Name vertices
+    for i in range(len(reads_graph.vs)):
+        reads_graph.vs[i]["id"] = i
+        reads_graph.vs[i]["label"] = str(my_map[i])
+    # Iterate links
+    for i in range(len(links)):
+        # Remove self loops
+        if links[i][0] != links[i][1]:
+            edge_list.append((int(links[i][0]), int(links[i][1])))
+            weights_list.append((float(links[i][2])))
 
 
-reads_graph.add_edges(edge_list)
+    reads_graph.add_edges(edge_list)
 
-reads_graph.es["weight"] = weights_list
+    reads_graph.es["weight"] = weights_list
 
-# except:
-#     logger.error("Please make sure that the correct path to the assembly graph file is provided.")
-#     logger.info("Exiting GraphBin... Bye...!")
-#     sys.exit(1)
+except:
+    logger.error("Please make sure that the correct path to the assembly graph file is provided.")
+    logger.info("Exiting ClassGraph... Bye...!")
+    sys.exit(1)
 
 logger.info("Total number of edges in the assembly graph: " + str(len(edge_list)))
 
@@ -276,49 +283,24 @@ logger.info("Starting label propagation")
 
 # The propagation at each iteration is performed from the last labelled nodes to their neighbors
 # Once a node is labbeled , that label is not going to be changed
-
-for v in range(max_iteration):
-    # print("iter" + str(v))
-
-    for i in range(len(data)):
-        if int(data[i][1] != 0) and len(data[i][2]) > 0:
-            for k in range(len(data[i][2])):
-                # if the neighbour to be labelled don't have already a label
-                to_label = int(data[i][2][k][0])
-                if data[to_label][1] == 0:
-                    tmp = []
-                    tl_weight = data[i][2][k][1]
-                    label = data[i][1]
-                    tmp.append(tl_weight)
-                    tmp.append(label)
-                    data[to_label].append(tmp)
-            data[i][2] = []
+try:
+  if labprop_v == 1:
+    pl1(max_iteration, data)
+  else
+    pl2(max_iteration, data)
 
 
-    for i in range(len(data)):
-        len_line = len(data[i])
-        if len_line > 3:
-            possible_labels = []
-            for k in range(3, len_line):
-                possible_labels.append(data[i][k])
-            possible_labels = sorted(possible_labels, key=operator.itemgetter(1))
-            summing_list = []
-            for j in range(len(possible_labels)):
-                if len(summing_list) == 0:
-                    summing_list.append(possible_labels[j])
-                elif len(summing_list) > 0 and summing_list[len(summing_list)-1][1] == possible_labels[j][1]:
-                    summing_list[len(summing_list) - 1][0] = summing_list[len(summing_list) - 1][0] + possible_labels[j][0]
-                else:
-                    summing_list.append(possible_labels[j])
-            summing_list = sorted(summing_list, key=operator.itemgetter(0))
-            data[i][1] = summing_list[len(summing_list)-1][1]
-            for k in range(3, len_line):
-                del data[i][3]
+
+except:
+    logger.error("Please make sure that you inserted the correct parameter for the lp version (either 1 or 2)")
+    logger.info("Exiting ClassGraph.. Bye...!")
+    sys.exit(1)
+
 
 
 logger.info("***************Label propagation termined**************")
 
-output_file = output_path + prefix + 'pleasedon'
+output_file = output_path + prefix + '.res'
 
 # with open(output_file, mode='w') as out_file:
 #     for i in range(len(data)):
