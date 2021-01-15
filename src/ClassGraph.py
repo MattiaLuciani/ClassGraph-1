@@ -10,7 +10,7 @@ import logging
 from igraph import *
 import labelprop
 import BidirectionalMap
-from LabelPropagation import lp1, pl
+from src.labprop.LabelPropagation import lp1, lp2
 
 
 
