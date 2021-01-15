@@ -41,7 +41,7 @@ def lp1(max_iteration, data):
                     del data[i][3]
 
 
-def pl(max_iteration, data):
+def lp2(max_iteration, data):
     for v in range(max_iteration):
         # print("iter" + str(v))
         tolabel_count = 0
