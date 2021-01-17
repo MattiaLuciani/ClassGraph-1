@@ -14,10 +14,10 @@ It's possible to download ClassGraph by cloning the repository in your machine.
 git clone https://github.com/MargheritaCavattoni/ClassGraph.git
 ```
 ## Installation
-The istallation of ClassGraph requires python 3.6 or above. Besides the following dependency is needed:
+The istallation of ClassGraph requires python 3.7 or above. Besides the following dependency is needed:
 * [python-igraph](https://igraph.org/python/)
 
-### Installing with Conda
+### Setting the environment with Conda
 It's possible to use [Conda](https://docs.conda.io/en/latest/) in order to set-up the proper environment of ClassGraph. [Anaconda](https://www.anaconda.com/distribution/) or [Miniconda](https://docs.conda.io/en/latest/miniconda.html) contain Conda.
 
 In order to create the Conda environment and activate it run the following commands:
