@@ -8,7 +8,6 @@ import argparse
 import re
 import logging
 from igraph import *
-import BidirectionalMap
 from labprop.LabelPropagation import lp1, lp2
 
 
