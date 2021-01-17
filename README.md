@@ -36,11 +36,11 @@ One possible tool that satisfies these requirements is [**SGA**](https://github.
 ### Binning Tools
 ClassGraph requires as input the result of the classification process presented as follows:
 ```
-NODE_1,L1
-NODE_2,L1
-NODE_3,L1
-NODE_4,L2
-NODE_5,L2
+NODE.1,L1
+NODE.2,L1
+NODE.3,L1
+NODE.4,L2
+NODE.5,L2
 ...
 ```
 Where NODE_i is the node ID and Li represents its label. Li must be equal to 0 if the read wasn't classified.
