@@ -8,9 +8,8 @@ import argparse
 import re
 import logging
 from igraph import *
-import labelprop
 import BidirectionalMap
-from LabelPropagation import lp1, lp2
+from labprop.LabelPropagation import lp1, lp2
 
 
 
