@@ -62,6 +62,6 @@ Where:
 If you encounter bugs or have further questions or requests, you can raise an issue at the issue page. You can also contact Margherita Cavattoni at cavattonimargherita@gmail.com
 
 ## Citation
-M. Cavattoni, M. Comin
-"Boosting Metagenomic Classification with Reads Overlap Graph"
-Under submission at the 7th-8th International Conference on Algorithms for Computational Biology
+M. Cavattoni, M. Comin,
+*"Boosting Metagenomic Classification with Reads Overlap Graph"*,
+Under submission at the [7th-8th International Conference on Algorithms for Computational Biology](https://irdta.eu/alcob2020-2021/)
