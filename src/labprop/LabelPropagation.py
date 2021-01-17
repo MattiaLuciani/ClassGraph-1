@@ -1,16 +1,20 @@
 from igraph import *
 
+# First version of the propagation algorithm
 
 def lp1(max_iteration, data):
     for v in range(max_iteration):
         # print("iter" + str(v))
 
+        # Nodes at level i-1 send info to their neighbours at level i
+        tolabel_count = 0
         for i in range(len(data)):
             if int(data[i][1] != 0) and len(data[i][2]) > 0:
                 for k in range(len(data[i][2])):
                     # if the neighbour to be labelled don't have already a label
                     to_label = int(data[i][2][k][0])
                     if data[to_label][1] == 0:
+                        tolabel_count += 1
                         tmp = []
                         tl_weight = data[i][2][k][1]
                         label = data[i][1]
@@ -18,6 +22,12 @@ def lp1(max_iteration, data):
                         tmp.append(label)
                         data[to_label].append(tmp)
                 data[i][2] = []
+
+        #print(tolabel_count)
+
+        if tolabel_count == 0:
+            break
+        # For each node at level i the final label is decided
 
         for i in range(len(data)):
             len_line = len(data[i])
@@ -41,9 +51,15 @@ def lp1(max_iteration, data):
                     del data[i][3]
 
 
+
+# Second version of the propagation algorithm
+
 def lp2(max_iteration, data):
     for v in range(max_iteration):
         # print("iter" + str(v))
+
+        # Nodes at level i-1 send info to their neighbours at level i
+
         tolabel_count = 0
         for i in range(len(data)):
             if int(data[i][1] != 0) and len(data[i][2]) > 0:
@@ -62,8 +78,12 @@ def lp2(max_iteration, data):
                         # print(data[to_label][3])
                 data[i][2] = []
 
+        #print(tolabel_count)
+
         if tolabel_count == 0:
             break
+
+        # Nodes at level i exchange infromations between each other
 
         for i in range(len(data)):
             if int(data[i][1] == 0) and len(data[i]) > 4:
@@ -75,6 +95,8 @@ def lp2(max_iteration, data):
                             new_tmp.append(mweight)
                             new_tmp.append(data[i][j][1])
                             data[data[i][2][k][0]].append(new_tmp)
+
+        # For each node at level i the final label is decided
 
         for i in range(len(data)):
             len_line = len(data[i])
@@ -97,3 +119,4 @@ def lp2(max_iteration, data):
                 data[i][3] = 0
                 for k in range(4, len_line):
                     del data[i][4]
+
