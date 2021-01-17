@@ -43,10 +43,10 @@ ap.add_argument("--binned", required=True,
                 help="path to the file with the initial binning output")
 ap.add_argument("--output", required=True, help="path to the output folder")
 ap.add_argument("--prefix", required=True, help="prefix for the output file")
-ap.add_argument("--max_iteration", required=True, type=int,
+ap.add_argument("--max_iteration", required=False, type=int, default=20,
                 help="maximum number of iterations for label propagation algorithm. [default: 20]")
-ap.add_argument("--lp_version", required=True, type=int,
-                help="Type 1 if you want to propagate with lp-v1, type 2 if you prefer to use lp-v2")
+ap.add_argument("--lp_version", required=False, type=int, default=1,
+                help="Type 1 if you want to propagate with lp-v1, type 2 if you prefer to use lp-v2. [default 1]")
 args = vars(ap.parse_args())
 
 sgafile = args["graph"]
