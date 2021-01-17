@@ -59,7 +59,7 @@ Where:
 * --max_iteration   maximum number of iterations in the label propagation algorithm
 
 ## Getting help
-If you encounter bugs or have further questions or requests, you can raise an issue at the issue page. You can also contact Francesco Andreace at cavattonimargherita@gmail.com
+If you encounter bugs or have further questions or requests, you can raise an issue at the issue page. You can also contact Margherita Cavattoni at cavattonimargherita@gmail.com
 
 ## Citation
 M. Cavattoni, M. Comin
