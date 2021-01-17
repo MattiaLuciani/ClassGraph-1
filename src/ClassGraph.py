@@ -10,7 +10,7 @@ import logging
 from igraph import *
 import labelprop
 import BidirectionalMap
-from LabelPropagation import lp1, pl
+from LabelPropagation import lp1, lp2
 
 
 
@@ -287,13 +287,10 @@ logger.info("Starting label propagation")
 # Once a node is labbeled , that label is not going to be changed
 try:
 
-
     if labprop_v == 1:
         lp1(max_iteration, data)
     else:
-        lp2(max_iteration,data)
-
-
+        lp2(max_iteration, data)
 
 except:
     logger.error("Please make sure that you inserted the correct parameter for the lp version (either 1 or 2)")
