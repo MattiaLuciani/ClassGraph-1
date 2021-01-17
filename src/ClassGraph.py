@@ -10,7 +10,7 @@ import logging
 from igraph import *
 import labelprop
 import BidirectionalMap
-from src.labprop.LabelPropagation import lp1, lp2
+from LabelPropagation import lp1, pl
 
 
 
@@ -276,6 +276,8 @@ for read in range(node_count):
 
 
     line.append(neighs)
+    if labprop_v == 2:
+        line.append(0)
     data.append(line)
 
 
@@ -284,10 +286,12 @@ logger.info("Starting label propagation")
 # The propagation at each iteration is performed from the last labelled nodes to their neighbors
 # Once a node is labbeled , that label is not going to be changed
 try:
-  if labprop_v == 1:
-    pl1(max_iteration, data)
-  else
-    pl2(max_iteration, data)
+
+
+    if labprop_v == 1:
+        lp1(max_iteration, data)
+    else:
+        lp2(max_iteration,data)
 
 
 
@@ -300,7 +304,7 @@ except:
 
 logger.info("***************Label propagation termined**************")
 
-output_file = output_path + prefix + '.res'
+output_file = output_path + prefix + 'pleasedon'
 
 # with open(output_file, mode='w') as out_file:
 #     for i in range(len(data)):
