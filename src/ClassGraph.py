@@ -301,7 +301,7 @@ except:
 
 logger.info("***************Label propagation termined**************")
 
-output_file = output_path + prefix + 'pleasedon'
+output_file = output_path + prefix + '.res'
 
 # with open(output_file, mode='w') as out_file:
 #     for i in range(len(data)):
