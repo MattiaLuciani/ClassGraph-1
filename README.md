@@ -64,4 +64,4 @@ If you encounter bugs or have further questions or requests, you can raise an is
 ## Citation
 M. Cavattoni, M. Comin,
 *"Boosting Metagenomic Classification with Reads Overlap Graph"*,
-Under submission at the [7th-8th International Conference on Algorithms for Computational Biology](https://irdta.eu/alcob2020-2021/)
+under submission at the [7th-8th International Conference on Algorithms for Computational Biology](https://irdta.eu/alcob2020-2021/)
