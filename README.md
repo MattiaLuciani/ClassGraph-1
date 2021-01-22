@@ -53,12 +53,12 @@ python3 ClassGraph.py --graph $Assembler_DIR/Graph.asqg --output $ClassGraph_Out
 ```
 Where:
 ```
-* --graph           path to the graph file (asqg)
-* --output          path to the folder where we want to store the output
-* --binned          path to the file that stores the result of the initial classification with a preexisting binning tool
-* --prefix          name of the output file
-* --max_iteration   maximum number of iterations in the label propagation algorithm (default: 20)
-* --lp_version      version of the label propagation algorithm to use (1 or 2, default: 1)
+  --graph           path to the graph file (asqg)
+  --output          path to the folder where we want to store the output
+  --binned          path to the file that stores the result of the initial classification with a preexisting binning tool
+  --prefix          name of the output file
+  --max_iteration   maximum number of iterations in the label propagation algorithm (default: 20)
+  --lp_version      version of the label propagation algorithm to use (1 or 2, default: 1)
 ```
 ## Getting help
 If you encounter bugs or have further questions or requests, you can raise an issue at the issue page. You can also contact Margherita Cavattoni at cavattonimargherita@gmail.com
