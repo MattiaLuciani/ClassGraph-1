@@ -8,7 +8,7 @@ import argparse
 import re
 import logging
 from igraph import *
-from labprop.LabelPropagation import lp1, lp2
+from labprop.LabelPropagation2 import lp1#, lp2
 
 
 
@@ -32,7 +32,7 @@ consoleHeader.setFormatter(formatter)
 logger.addHandler(consoleHeader)
 
 start_time = time.time()
-
+"""
 # Setup argument parser
 # -----------------------
 
@@ -42,7 +42,7 @@ ap.add_argument("--graph", required=True, help="path to the reads graph file")
 ap.add_argument("--binned", required=True,
                 help="path to the file with the initial binning output")
 ap.add_argument("--output", required=True, help="path to the output folder")
-ap.add_argument("--prefix", required=True, help="prefix for the output file")
+ap.add_argument("--prefix", required=False, help="prefix for the output file")
 ap.add_argument("--max_iteration", required=False, type=int, default=20,
                 help="maximum number of iterations for label propagation algorithm. [default: 20]")
 ap.add_argument("--lp_version", required=False, type=int, default=1,
@@ -58,16 +58,27 @@ prefix = args["prefix"]
 max_iteration = args["max_iteration"]
 labprop_v= args["lp_version"]
 
+"""
+
+sgafile = '/Users/mattialuciani/ClassGraph/Testing-Files/OverlapGraph.asqg'
+#asqg
+kraken2_file = '/Users/mattialuciani/ClassGraph/Testing-Files/binning.res'
+# kraken
+output_path = '/Users/mattialuciani/ClassGraph/output'
+prefix = 'example1'
+max_iteration = 21
+labprop_v= 1
+
 # Setup output path for log file
 # ---------------------------------------------------
+#fileHandler = logging.FileHandler(output_path + "/" + prefix + "classgraph.log")
 
-fileHandler = logging.FileHandler(output_path + "/" + prefix + "classgraph.log")
+fileHandler = logging.FileHandler(output_path + "/" + prefix)
 fileHandler.setLevel(logging.INFO)
 fileHandler.setFormatter(formatter)
 logger.addHandler(fileHandler)
 
-logger.info(
-    "ReadGraph makes use of the assembly graph produced by SGA")
+logger.info("ReadGraph makes use of the assembly graph produced by SGA")
 
 logger.info("Overlap graph file: " + sgafile)
 logger.info("Existing binning output file: " + kraken2_file)
@@ -173,8 +184,8 @@ try:
         my_map.append(read_id)
         node_count += 1
 
-    # for i in range(len(read_groups)):
-    #     print(read_groups[i])
+    #for i in range(len(read_groups)):
+        # print(read_groups[i])
 
 
     for j in range(len(edges)):
@@ -192,8 +203,8 @@ try:
         link.append(float(edges[j][2]))
         links.append(list(link))
 
-# for i in range(len(links)):
-#     print(links[i])
+    #for i in range(len(links)):
+        #print(links[i])
 
 except:
     logger.error("Please make sure that the correct path to the assembly graph file is provided.")
