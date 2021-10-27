@@ -10,7 +10,7 @@ def lp1(max_iteration, data):
     #file_uno.write(str1)
     #file_uno.close()
     #print(data)
-    #start = timer()
+    start = timer()
     for v in range(max_iteration):
         # Nodes at level i-1 send info to their neighbours at level i
         tolabel_count = 0
@@ -21,28 +21,25 @@ def lp1(max_iteration, data):
                     # if the neighbour to be labelled don't have already a label
                     to_label = int(data[i][2][k][0])
                     if data[to_label][1] == 0: # node to be labelled
-                        #tolabel_count += 1
-                        
-                        tl_weight = data[i][2][k][1]
-                        #print(data[i][2])
                         label = data[i][1]
+                        tl_weight = data[i][2][k][1]
+                        tmp = [label, tl_weight]
+                        data[to_label].append(tmp)
+                        #tmp.append(label)
+                        #tmp.append(tl_weight)
+                        #tmp.sort(reverse=True)
+
+                        #for i in range(len(tmp)):
                         
-                        
-                        tmp = []
-                        
-                        tmp.append(tl_weight)
-                        tmp.append(label)
-                        tmp.reverse()
+                        #tmp.reverse()
                         
                         #print(tmp)
                         
-                        data[to_label].append(tmp)
-                        print(data[to_label])
                         
-                        
+                        #print(data[to_label])
+        #print(tolabel_count)         
                 #data[i][2] = []
-        #if tolabel_count == 0:
-           # break
+
             
             
         # For each node at level i the final label is decided
@@ -53,21 +50,18 @@ def lp1(max_iteration, data):
                 possible_labels = []
                 for k in range(3, len_line):
                     possible_labels.append(data[i][k])
-                #possible_labels = sorted(possible_labels, key=operator.itemgetter(1)) #not necessary (0.078273676 of difference)
                 summing_list = []
-                
                 for j in range(len(possible_labels)):
-                    if len(summing_list) == 0:
-                        summing_list.append(possible_labels[j])
-                    elif len(summing_list) > 0 and summing_list[len(summing_list) - 1][1] == possible_labels[j][1]:
+                    #print(possible_labels[j])
+                    summing_list.append(possible_labels[j])
+                    if len(summing_list) > 0 and summing_list[len(summing_list) - 1][1] == possible_labels[j][1]:
                         summing_list[len(summing_list) - 1][0] = summing_list[len(summing_list) - 1][0] + possible_labels[j][0]
                     else:
                         summing_list.append(possible_labels[j])
                         #print("****************")
-                summing_list = sorted(summing_list, key=operator.itemgetter(0))
                 data[i][1] = summing_list[len(summing_list) - 1][1]
                # print(data[i][1])
                 for k in range(3, len_line):
                     del data[i][3]
-    #end = timer()
-    #print("Time taken:", end-start)
+    end = timer()
+    print("Time taken:", end-start)

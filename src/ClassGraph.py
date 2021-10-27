@@ -66,7 +66,7 @@ kraken2_file = '/Users/mattialuciani/ClassGraph/Testing-Files/binning.res'
 # kraken
 output_path = '/Users/mattialuciani/ClassGraph/output'
 prefix = 'example1'
-max_iteration = 21
+max_iteration = 22
 labprop_v= 1
 
 # Setup output path for log file

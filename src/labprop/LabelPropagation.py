@@ -3,17 +3,17 @@ from igraph import *
 
 def lp1(max_iteration, data):
     for v in range(max_iteration):
+        # print("iter" + str(v))
+
         # Nodes at level i-1 send info to their neighbours at level i
         tolabel_count = 0
         for i in range(len(data)):
-            
             if int(data[i][1] != 0) and len(data[i][2]) > 0:
                 for k in range(len(data[i][2])):
                     # if the neighbour to be labelled don't have already a label
                     to_label = int(data[i][2][k][0])
                     if data[to_label][1] == 0:
-                        #print(data[to_label])
-                        tolabel_count += 1 #errore
+                        tolabel_count += 1
                         tmp = []
                         tl_weight = data[i][2][k][1]
                         label = data[i][1]
@@ -21,6 +21,8 @@ def lp1(max_iteration, data):
                         tmp.append(label)
                         data[to_label].append(tmp)
                 data[i][2] = []
+
+        print(tolabel_count)
 
         if tolabel_count == 0:
             break
