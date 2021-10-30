@@ -20,36 +20,26 @@ def lp1(max_iteration, data):
                 for k in range(len(data[i][2])):
                     # if the neighbour to be labelled don't have already a label
                     to_label = int(data[i][2][k][0])
+                
                     if data[to_label][1] == 0: # node to be labelled
                         label = data[i][1]
                         tl_weight = data[i][2][k][1]
-                        tmp = [label, tl_weight]
-                        data[to_label].append(tmp)
-                        #tmp.append(label)
-                        #tmp.append(tl_weight)
-                        #tmp.sort(reverse=True)
-
+                        tmp = [tl_weight, label]
+                        
                         #for i in range(len(tmp)):
-                        
-                        #tmp.reverse()
-                        
-                        #print(tmp)
-                        
-                        
-                        #print(data[to_label])
-        #print(tolabel_count)         
-                #data[i][2] = []
+                            #tmp[i].sort(reverse=True)
+                        print(tmp)
+                        #data[to_label].append(tmp)
 
-            
-            
         # For each node at level i the final label is decided
-
-        for i in range(len(data)):
+        
+        for i in range(len(data)): #50000
             len_line = len(data[i])
             if len_line > 3:
                 possible_labels = []
                 for k in range(3, len_line):
                     possible_labels.append(data[i][k])
+                    print(possible_labels)
                 summing_list = []
                 for j in range(len(possible_labels)):
                     #print(possible_labels[j])
@@ -64,4 +54,4 @@ def lp1(max_iteration, data):
                 for k in range(3, len_line):
                     del data[i][3]
     end = timer()
-    print("Time taken:", end-start)
+    #print("Time taken:", end-start)
