@@ -35,20 +35,20 @@ start_time = time.time()
 
 # Setup argument parser
 # -----------------------
-"""
-# Setup argument parser
-# -----------------------
+'''
 ap = argparse.ArgumentParser()
+
 ap.add_argument("--graph", required=True, help="path to the reads graph file")
 ap.add_argument("--binned", required=True,
                 help="path to the file with the initial binning output")
 ap.add_argument("--output", required=True, help="path to the output folder")
-ap.add_argument("--prefix", required=False, help="prefix for the output file")
+ap.add_argument("--prefix", required=True, help="prefix for the output file")
 ap.add_argument("--max_iteration", required=False, type=int, default=20,
                 help="maximum number of iterations for label propagation algorithm. [default: 20]")
 ap.add_argument("--lp_version", required=False, type=int, default=1,
                 help="Type 1 if you want to propagate with lp-v1, type 2 if you prefer to use lp-v2. [default 1]")
 args = vars(ap.parse_args())
+
 sgafile = args["graph"]
 # asqg
 kraken2_file = args["binned"]
@@ -57,12 +57,14 @@ output_path = args["output"]
 prefix = args["prefix"]
 max_iteration = args["max_iteration"]
 labprop_v= args["lp_version"]
-"""
-
+'''
+# Testing file
 sgafile = '/Users/mattialuciani/ClassGraph/Testing-Files/OverlapGraph.asqg'
-#asqg
 kraken2_file = '/Users/mattialuciani/ClassGraph/Testing-Files/binning.res'
-#kraken2_file = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/strex_centrifuge_250000.res'
+#asqg
+
+#sgafile = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/sga_all_Davide.asqg'
+#kraken2_file = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/strex_centrifuge_250000_mod.res'
 #kraken2_file = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/strex_clark_species_250000.res'
 #kraken2_file = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/strex_kraken2_250000.res'
 #kraken2_file = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/strex_kraken1_250000.res'
@@ -70,11 +72,9 @@ kraken2_file = '/Users/mattialuciani/ClassGraph/Testing-Files/binning.res'
 
 # kraken
 output_path = '/Users/mattialuciani/ClassGraph/output'
-prefix = 'CG2'
+prefix = 'lp2WL'
 max_iteration = 20
-labprop_v = 2
-
-
+labprop_v = 1
 
 # Setup output path for log file
 # ---------------------------------------------------
@@ -159,8 +159,6 @@ with open(sgafile, 'r') as infile1, open(kraken2_file, 'r') as infile2:
 
 links = []
 
-li= []
-
 my_map = []
 
 node_count = 0
@@ -197,9 +195,6 @@ try:
     #     print(read_groups[i])
 
 
-
-
-        
     for j in range(len(edges)):
         link = []
         common1 = edges[j][0].split(".", 1)[0]
@@ -212,19 +207,11 @@ try:
             if common2 == read_groups[i][0]:
                 link.append(int(read_groups[i][1] + int(edges[j][1][(len(common2) + 1):]) - 1))
                 break
-                
         link.append(float(edges[j][2]))
-                 
         links.append(list(link))
 
-    for item in links:
-        if len(item)==3:
-            li.append(item)
-        else:
-            print(item)
-  
-
-
+# for i in range(len(links)):
+#     print(links[i])
 
 except:
     logger.error("Please make sure that the correct path to the assembly graph file is provided.")
@@ -234,45 +221,39 @@ except:
 # Construct the assembly graph
 # -------------------------------
 #
-
-#try:
+try:
 
     # Create the graph
-reads_graph = Graph()
+    reads_graph = Graph()
 
     # Create list of edges
-edge_list = []
+    edge_list = []
 
-weights_list = []
+    weights_list = []
 
     # Add vertices
-reads_graph.add_vertices(node_count)
+    reads_graph.add_vertices(node_count)
 
     # Name vertices
-
-for i in range(len(reads_graph.vs)):
-    reads_graph.vs[i]["id"] = i
-    reads_graph.vs[i]["label"] = str(my_map[i])
+    for i in range(len(reads_graph.vs)):
+        reads_graph.vs[i]["id"] = i
+        reads_graph.vs[i]["label"] = str(my_map[i])
     # Iterate links
-
-for i in range(len(li)):
-    
-    #for item in links:
-        #if len(item) == 3:
-
+    for i in range(len(links)):
         # Remove self loops
-            if li[i][0] != li[i][1]:
-                edge_list.append((int(li[i][0]), int(li[i][1])))
-                weights_list.append((float(li[i][2])))
+        if links[i][0] != links[i][1]:
+            edge_list.append((int(links[i][0]), int(links[i][1])))
+            weights_list.append((float(links[i][2])))
 
-reads_graph.add_edges(edge_list)
 
-reads_graph.es["weight"] = weights_list
-    
-#except:
-#    logger.error("Please make sure that the correct path to the assembly graph file is provided.")
-#    logger.info("Exiting ClassGraph... Bye...!")
-#    sys.exit(1)
+    reads_graph.add_edges(edge_list)
+
+    reads_graph.es["weight"] = weights_list
+
+except:
+    logger.error("Please make sure that the correct path to the assembly graph file is provided.")
+    logger.info("Exiting ClassGraph... Bye...!")
+    sys.exit(1)
 
 logger.info("Total number of edges in the assembly graph: " + str(len(edge_list)))
 
@@ -320,17 +301,13 @@ logger.info("Starting label propagation")
 
 # The propagation at each iteration is performed from the last labelled nodes to their neighbors
 # Once a node is labbeled , that label is not going to be changed
-#try:
+
 
 if labprop_v == 1:
     lp1(max_iteration, data)
 else:
     lp2(max_iteration, data)
 
-#except:
-    #logger.error("Please make sure that you inserted the correct parameter for the lp version (either 1 or 2)")
-    #logger.info("Exiting ClassGraph.. Bye...!")
-    #sys.exit(1)
 
 
 
