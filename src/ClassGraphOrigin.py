@@ -8,7 +8,9 @@ import argparse
 import re
 import logging
 from igraph import *
-from labprop.LabelPropagation2 import lp1, lp2
+#from labprop.LabelPropagation2 import lp1
+from labprop.LabelPropagation import lp1, lp2
+
 
 
 
@@ -59,20 +61,20 @@ max_iteration = args["max_iteration"]
 labprop_v= args["lp_version"]
 '''
 # Testing file
-sgafile = '/Users/mattialuciani/ClassGraph/Testing-Files/OverlapGraph.asqg'
-kraken2_file = '/Users/mattialuciani/ClassGraph/Testing-Files/binning.res'
+#sgafile = '/Users/mattialuciani/ClassGraph/Testing-Files/OverlapGraph.asqg'
+#kraken2_file = '/Users/mattialuciani/ClassGraph/Testing-Files/binning.res'
 #asqg
 
-#sgafile = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/sga_all_Davide.asqg'
+sgafile = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/sga_all_Davide.asqg'
 #kraken2_file = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/strex_centrifuge_250000_mod.res'
-#kraken2_file = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/strex_clark_species_250000.res'
+kraken2_file = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/strex_clark_species_250000_mod.res'
 #kraken2_file = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/strex_kraken2_250000.res'
 #kraken2_file = '/Users/mattialuciani/Desktop/AlgoBio/SimDataset/strex_kraken1_250000.res'
 
 
 # kraken
 output_path = '/Users/mattialuciani/ClassGraph/output'
-prefix = 'lp2WL'
+prefix = 'strex_clark_species_250000_modLP1'
 max_iteration = 20
 labprop_v = 1
 
@@ -295,6 +297,9 @@ for read in range(node_count):
     if labprop_v == 2:
         line.append(0)
     data.append(line)
+    
+    
+logger.info("tutto ok prima della lp")
 
 
 logger.info("Starting label propagation")

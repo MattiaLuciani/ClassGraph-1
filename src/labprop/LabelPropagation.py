@@ -26,10 +26,9 @@ def lp1(max_iteration, data):
                         tmp.append(tl_weight)
                         tmp.append(label)
                         data[to_label].append(tmp)
-                        print(tmp)
                 data[i][2] = []
 
-        #print(tolabel_count)
+        print(tolabel_count)
 
         if tolabel_count == 0:
             break
@@ -47,14 +46,14 @@ def lp1(max_iteration, data):
                 summing_list = []
                 for j in range(len(possible_labels)):
                     if len(summing_list) == 0:
-
                         summing_list.append(possible_labels[j])
+                        #print(summing_list)
                     elif len(summing_list) > 0 and summing_list[len(summing_list) - 1][1] == possible_labels[j][1]:
                         summing_list[len(summing_list) - 1][0] = summing_list[len(summing_list) - 1][0] + \
                                                                  possible_labels[j][0]
+
                     else:
                         summing_list.append(possible_labels[j])
-                        summing_list.append(possible_labels[j]) 
                 summing_list = sorted(summing_list, key=operator.itemgetter(0))
                 data[i][1] = summing_list[len(summing_list) - 1][1]
                 for k in range(3, len_line):
@@ -130,3 +129,4 @@ def lp2(max_iteration, data):
                 data[i][3] = 0
                 for k in range(4, len_line):
                     del data[i][4]
+                    
