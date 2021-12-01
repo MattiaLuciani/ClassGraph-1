@@ -35,7 +35,7 @@ start_time = time.time()
 
 # Setup argument parser
 # -----------------------
-"""
+
 # Setup argument parser
 # -----------------------
 ap = argparse.ArgumentParser()
@@ -57,7 +57,7 @@ output_path = args["output"]
 prefix = args["prefix"]
 max_iteration = args["max_iteration"]
 labprop_v= args["lp_version"]
-"""
+
 
 sgafile = '/Users/mattialuciani/ClassGraph/Testing-Files/OverlapGraph.asqg'
 #asqg
