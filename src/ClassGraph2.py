@@ -11,17 +11,16 @@ from igraph import *
 import igraph as ig
 import collections
 
-//.asqg file path
+#.asqg file path
 sgafile =
 
-//Kraken2 output path
+#Kraken2 output path
 kraken2_file = 
 
 //Kraken2 output path
 output_path = 
 
 max_iteration = 20
-labprop_v = 1
 krakenlabels = []
 edges = []
 
@@ -39,8 +38,14 @@ with open(sgafile, 'r') as infile1, open(kraken2_file, 'r') as infile2:
     for line in infile1:
         if line.startswith("ED"):
             words = line.split()
+
+	    #first node
             firststring = words[1].split(".", 1)[1]
+
+	    #second node
             secondstring = words[2].split(".", 1)[1]
+
+	    #overlap of reads / chaining scoore
             overlap = int(words[9])
             normalizedoverlaplength = float(overlap/3000)
             edge = []
@@ -110,11 +115,6 @@ for i in range(len(links)):
         edge_list.append((int(links[i][0]), int(links[i][1])))
         
         weights_list.append((float(links[i][2])))
-    
-print('ok2')
-reads_graph.add_edges(edge_list)
-print('ok3')
-reads_graph.es["weight"] = weights_list
 
 
 print("Total number of edges in the assembly graph: " + str(len(edge_list)))
@@ -128,40 +128,7 @@ for read in range(node_count):
 print('label = 0 prima di RL:', f)  
 
 
-#first implementation RefineLabels
-'''
-for read in range(node_count): 
-    neighbours = reads_graph.neighbors(read)
-    for v in neighbours:
-        if reads_info[v] != reads_info[read] and reads_info[read] != '0' and reads_info[v] != '0':
-            reads_info[read] = '0'
-            reads_info[v] = '0'
-'''
-            
-
-
-
-'''
-#second implementation RefineLabels
-
-for read in range(node_count):
-    neighbours = reads_graph.neighbors(read)
-    n = []        
-    for v in neighbours:
-        if reads_info[v] != '0':
-            n.append(reads_info[v])
-            count = n.count(reads_info[read])
-            if count < len(n)/2: 
-                reads_info[read] = '0' 
-'''
-
-
-
-
-
-
-
-#third implementation RefineLabels
+#RefineLabels algorithm
 to_elim = []
 count = 0
 for read in range(node_count):
@@ -178,25 +145,13 @@ for read in to_elim:
     reads_info[read] = '0'
 
 
-
-
-    
-    
-g = 0 
-for read in range(node_count):
-    if reads_info[read] == '0': # conta le label messe a 0 
-        g = g + 1 
-print('label = 0 dopo di RL:', g)
-
-
-
-
 # Run label propagation
 # -----------------------
 
 print("Preparing data for label propagation")
 
 # In the graph are not inserted edges that connect already labbeled nodes
+
 LabbeledVertices = []
 data = []
 count = 0
@@ -229,13 +184,6 @@ for read in range(node_count):
     data.append(line)
 
 print("Starting label propagation")
-
-
-h = 0
-for read in range(node_count):
-    if reads_info[read] == '0': # conta le label messe a 0 
-        h = h + 1 
-print('label = 0 prima di LP:', h)
 
 iteration = 0
 for v in range(max_iteration):
@@ -281,9 +229,6 @@ for v in range(max_iteration):
             data[i][1] = summing_list[len(summing_list) - 1][1]
             for k in range(3, len_line):
                 del data[i][3]
-print(iteration)
-
-
 
 
 print("***************Label propagation termined**************")
@@ -294,8 +239,7 @@ for read in range(node_count):
         k = k + 1 
 print('label = 0 dopo di LP:', k)
 
-#output_file = output_path + prefix + '.res'
-output_file = output_path + 'SRR7585901_strex.res'
+output_file = output_path + 'ClassGraph2-out.res'
 
 with open(output_file, mode='w') as out_file:
     for i in range(len(data)):
