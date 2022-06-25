@@ -48,8 +48,10 @@ From the results in the Figure
 
 
   <img src="Images/ClassGrap2.png" width="600" title="ClassGraph2 results" alt="ClassGraph2 results">
-  <img src="Images/Generalscheme.png" width="600" title="ClassGraph2 results" alt="ClassGraph2 results">
-
+  
+  <p align="center">
+  <img src="Images/Generalscheme.png" width="600" title="ClassGraph workflow" alt="ClassGraph workflow">
+  </p>
 
 it can be seen that after running ClassGraph the classification accuracy, in terms of F-measure, for all datasets increases slightly, mostly due to a better sensitivity. With ClassGraph2 there is a further increase in the classification accuracy for all datasets, with a substantial
 increase of both sensitivity and precision. From the results it can be observed
