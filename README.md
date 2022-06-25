@@ -34,7 +34,14 @@ of Kraken2 with ClassGraph and ClassGraph2. Sensitivity, precision, F1-Score
 and PCC were used to assess the accuracy of the classifications. Instead, time
 and memory were used to assess the running costs of the tools.
 
-From the results in the Figure 1 it can be seen that after running ClassGraph the classification accuracy, in terms of F-measure, for all datasets increases slightly, mostly due to a better sensitivity. With ClassGraph2 there is a further increase in the classification accuracy for all datasets, with a substantial
+From the results in the Figure 
+
+<p align="center">
+  <img src="Images/ClassGrap2.png" width="600" title="ClassGraph2 results" alt="ClassGraph2 results">
+</p>
+
+
+it can be seen that after running ClassGraph the classification accuracy, in terms of F-measure, for all datasets increases slightly, mostly due to a better sensitivity. With ClassGraph2 there is a further increase in the classification accuracy for all datasets, with a substantial
 increase of both sensitivity and precision. From the results it can be observed
 that, although Kraken2 is one of the best binning tools, it cannot classify all
 reads, in fact the sensitivity on the most complex datasets is 57%, and the
