@@ -53,3 +53,4 @@ expand only the correct ones, thus improving both sensitivity and precision. It
 can also be seen that the execution times of Kraken2 and ClassGraph2 are of
 the same order of magnitude. The memory required to run ClassGraph2 is less
 than that required to run Kraken2.
+
