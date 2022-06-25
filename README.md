@@ -1,6 +1,8 @@
 # ClassGraph2
 
-Motivation: Current technologies allow the sequencing of microbial communities directly from the environment without prior culturing. The major problem
+Motivation: 
+
+Current technologies allow the sequencing of microbial communities directly from the environment without prior culturing. The major problem
 when analyzing a metagenomic sample is to taxonomically annotate its reads
 to identify the species they contain. Most of the methods currently available
 focus on the classification of reads using a set of reference genomes and their
@@ -9,7 +11,11 @@ correctness close to perfection, in terms of recall (the actual number of classi
 reads) the performances fall at around 50%. One of the reasons is the fact that
 the sequences in a sample can be very different from the corresponding reference
 genome, e.g. viral genomes are highly mutated.
-Methods: To address this problem, in this paper we propose ClassGraph2,
+
+
+Methods: 
+
+To address this problem, in this paper we propose ClassGraph2,
 a metagenomic taxonomy refinement tool that makes use of reads overlap information from the reads overlap graph, to refine the results of existing tools to classify unlabelled reads. ClassGraph2 needs two types of input: one is the
 reads overlap graph and the other is the output of a binning tool. At this stage
 the graph is stored in a data structure, where to each vertex/read is associated
@@ -26,7 +32,11 @@ this label must be removed. Once all nodes have been processed, the labels are
 deleted. In the label propagation phase each labeled node sends its label to
 its neighbor, along with the weight of the arc connecting the two nodes. The
 receiving node will choose its label maximizing the score of the associated arcs.
-Results: We tested ClassGraph2 on three simulated datasets of long reads,
+
+
+Results: 
+
+We tested ClassGraph2 on three simulated datasets of long reads,
 created using SimLoRD with 8, 20 and 50 species as in [cite], and a real marine metagenome with 5000 species, from the CAMI2 challenge, for which the
 ground truth is known. We chose Kraken2, which is the state of the art, for the
 taxonomic classification of reads. We compared the classification performance
@@ -37,7 +47,7 @@ and memory were used to assess the running costs of the tools.
 From the results in the Figure 
 
 <p align="center">
-  <img src="Images/ClassGrap2.png" width="600" title="ClassGraph2 results" alt="ClassGraph2 results">
+  <img src="ClassGrap2.png" width="600" title="ClassGraph2 results" alt="ClassGraph2 results">
 </p>
 
 
