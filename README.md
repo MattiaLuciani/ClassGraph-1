@@ -48,7 +48,7 @@ From the results in the Figure
 
 
 
-![alt text](https://github.com/MattiaLuciani/ClassGraph2/ClassGraph2.png?raw=true)
+![alt text](https://github.com/MattiaLuciani/ClassGraph2/Images/ClassGraph2.png?raw=true)
 
 
 
