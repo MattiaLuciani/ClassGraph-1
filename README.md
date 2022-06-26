@@ -63,4 +63,4 @@ can also be seen that the execution times of Kraken2 and ClassGraph2 are of
 the same order of magnitude. The memory required to run ClassGraph2 is less
 than that required to run Kraken2.
 
-<embed src="Supplementary_information_BITS_ClassGraph2.pdf" type="application/pdf">
+in the repository you can find the Supplementary_information_BITS_ClassGraph2.pdf file where there is detailed information on all the research carried out.
