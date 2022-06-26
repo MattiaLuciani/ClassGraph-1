@@ -1,6 +1,6 @@
 # ClassGraph2
 
-##Motivation:
+Motivation:
 
 Current technologies allow the sequencing of microbial communities directly from the environment without prior culturing. The major problem
 when analyzing a metagenomic sample is to taxonomically annotate its reads
@@ -13,7 +13,7 @@ the sequences in a sample can be very different from the corresponding reference
 genome, e.g. viral genomes are highly mutated.
 
 
-##Methods:
+Methods:
 
 To address this problem, in this paper we propose ClassGraph2,
 a metagenomic taxonomy refinement tool that makes use of reads overlap information from the reads overlap graph, to refine the results of existing tools to classify unlabelled reads. ClassGraph2 needs two types of input: one is the
@@ -34,7 +34,7 @@ its neighbor, along with the weight of the arc connecting the two nodes. The
 receiving node will choose its label maximizing the score of the associated arcs.
 
 
-##Results:
+Results:
 
 We tested ClassGraph2 on three simulated datasets of long reads,
 created using SimLoRD with 8, 20 and 50 species as in [cite], and a real marine metagenome with 5000 species, from the CAMI2 challenge, for which the
