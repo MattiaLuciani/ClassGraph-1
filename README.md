@@ -46,11 +46,15 @@ and memory were used to assess the running costs of the tools.
 
 From the results in the Figure
 
-
-
 ![alt text](https://github.com/MattiaLuciani/ClassGraph2/Images/ClassGraph2.png?raw=true)
 
+<p align="center">
+  <img src="Images/Generalscheme.png" width="600" title="ClassGraph workflow" alt="ClassGraph workflow">
+</p>
 
+<p align="center">
+  <img src="Images/ClassGraph2.png" width="600" title="ClassGraph workflow" alt="ClassGraph workflow">
+</p>
 
 it can be seen that after running ClassGraph the classification accuracy, in terms of F-measure, for all datasets increases slightly, mostly due to a better sensitivity. With ClassGraph2 there is a further increase in the classification accuracy for all datasets, with a substantial
 increase of both sensitivity and precision. From the results it can be observed
