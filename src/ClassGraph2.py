@@ -17,7 +17,7 @@ sgafile =
 #Kraken2 output path
 kraken2_file = 
 
-//Kraken2 output path
+#Kraken2 output path
 output_path = 
 
 max_iteration = 20
